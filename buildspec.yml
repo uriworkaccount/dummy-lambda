@@ -1,5 +1,8 @@
 version: 0.2
-
+env:
+  variables:
+    LAMBDA_FUNCTION: "dummy-lambda"
+    
 phases:
   install:
     runtime-versions:
@@ -11,7 +14,7 @@ phases:
     commands:
       - echo Build started on `date`
       - zip -r lambda_function.zip .
-      - aws lambda update-function-code --function-name $FunctionName --zip-file fileb://lambda_function.zip --publish
+      - aws lambda update-function-code --function-name $LAMBDA_FUNCTION --zip-file fileb://lambda_function.zip --publish
 artifacts:
   files:
     - lambda_function.zip
