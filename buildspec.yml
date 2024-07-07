@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+  pre_build:
+    commands:
+      - pip install -r requirements.txt -t .
+  build:
+    commands:
+      - echo Build started on `date`
+      - zip -r lambda_function.zip .
+      - aws lambda update-function-code --function-name $FunctionName --zip-file fileb://lambda_function.zip --publish
+artifacts:
+  files:
+    - lambda_function.zip
+    - appspec.yml
+  discard-paths: yes
